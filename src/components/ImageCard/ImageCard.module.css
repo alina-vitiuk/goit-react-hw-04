@@ -1,0 +1,27 @@
+.galleryImage {
+  display: block;
+  height: 30vh;
+  object-fit: cover;
+}
+
+.thumbBlock {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  justify-content: space-between;
+
+  padding: 10px;
+}
+
+.textPhoto {
+  color: #212127;
+  font-size: 16px;
+  line-height: 1.5;
+  letter-spacing: 0.04em;
+}
+
+.position {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
