@@ -10,6 +10,7 @@ import ImageGallery from "./components/ImageGallery/ImageGallery";
 import LoadMoreBtn from "./components/LoadMoreBtn/LoadMoreBtn";
 import LoaderMore from "./components/Loader/LoaderMore";
 import ErrorMessage from "./components/ErrorMessage/ErrorMessage";
+import ImageModal from "./components/ImageModal/ImageModal";
 
 function App() {
   const [images, setImages] = useState([]);
@@ -20,6 +21,14 @@ function App() {
   const [loading, setLoading] = useState(false);
   const [loadingMore, setLoadingMore] = useState(false);
   const [isSearching, setIsSearching] = useState(false);
+  const [selectedImage, setSelectedImage] = useState(null);
+  const [modalIsOpen, setModalIsOpen] = useState(false);
+
+  useEffect(() => {
+    if (search !== "") {
+      page + 1;
+    }
+  }, [page, search]);
 
   useEffect(() => {
     Modal.setAppElement("#root");
@@ -78,6 +87,12 @@ function App() {
     return totalPages !== 0 && totalPages !== page && !loadingMore;
   };
 
+  const openModal = (image) => {
+    setSelectedImage(image);
+    setModalIsOpen(true);
+  };
+  const closeModal = () => setModalIsOpen(false);
+
   return (
     <>
       <SearchBar onSubmit={handleSearch} />
@@ -90,13 +105,19 @@ function App() {
       />
       {loading && <Loader />}
       {error && <ErrorMessage />}
-      <ImageGallery imageList={images} />
-      {!loadingMore && !isSearching && !loading && (
+      <ImageGallery imageList={images} openModal={openModal} />
+      {!loadingMore && !isSearching && (
         <LoadMoreBtn onClick={handleLoadMore} isVisible={isVisible} />
       )}
-      {loadingMore && <LoaderMore />}{" "}
+      {loadingMore && <LoaderMore />}
+      {selectedImage && (
+        <ImageModal
+          isOpen={modalIsOpen}
+          image={selectedImage}
+          onCloseModal={closeModal}
+        />
+      )}
     </>
   );
 }
-
 export default App;

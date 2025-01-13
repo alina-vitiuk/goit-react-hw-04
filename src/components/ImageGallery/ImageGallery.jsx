@@ -1,16 +1,15 @@
-import ImageCards from "../ImageCard/ImageCard";
-// import openModalWin from "../ImageCard/ImageCard";
+import ImageCard from "../ImageCard/ImageCard";
 import PropTypes from "prop-types";
 import css from "./ImageGallery.module.css";
 
-const ImageGallery = ({ imageList, openModalWin }) => {
+const ImageGallery = ({ imageList, openModal }) => {
   const imageClick = (event) => {
     const imgItem = event.target.closest("li");
     if (imgItem) {
       const imgID = imgItem.dataset.id;
       const clickedImageItem = imageList.find((image) => image.id === imgID);
-      if (clickedImageItem && typeof openModalWin === "function") {
-        openModalWin(clickedImageItem);
+      if (clickedImageItem) {
+        openModal(clickedImageItem);
       }
     }
   };
@@ -20,7 +19,7 @@ const ImageGallery = ({ imageList, openModalWin }) => {
         <ul className={css.gallery} onClick={imageClick}>
           {imageList.map((img) => (
             <li className={css.galleryItem} key={img.id} data-id={img.id}>
-              <ImageCards imageItem={img} />
+              <ImageCard imageItem={img} onImageClick={openModal} />
             </li>
           ))}
         </ul>
@@ -35,7 +34,7 @@ ImageGallery.propTypes = {
       id: PropTypes.string.isRequired,
     })
   ).isRequired,
-  openModalWin: PropTypes.func.isRequired,
+  openModal: PropTypes.func.isRequired,
 };
 
 export default ImageGallery;

@@ -1,40 +1,28 @@
 import css from "./ImageCard.module.css";
 import PropTypes from "prop-types";
-import ImageModal from "../ImageModal/ImageModal";
-import { useState } from "react";
 
-function ImageCards({
+function ImageCard({
   imageItem: {
     alt_description,
     urls: { small, regular },
   },
+  onImageClick,
 }) {
-  const [modalOpen, setModelOpen] = useState(false);
-  const openModalWin = () => {
-    setModelOpen(true);
-  };
-  const closeModal = () => {
-    setModelOpen(false);
-  };
   return (
     <div className={css.galleryThumb}>
       <img
-        onClick={openModalWin}
+        onClick={() => onImageClick(regular)}
         className={css.galleryImage}
         src={small}
         alt={alt_description}
         width="360"
       />
-      <ImageModal
-        isOpen={modalOpen}
-        image={regular}
-        onCloseModal={closeModal}
-      />
     </div>
   );
 }
 
-ImageCards.propTypes = {
+ImageCard.propTypes = {
+  onImageClick: PropTypes.func,
   imageItem: PropTypes.shape({
     alt_description: PropTypes.string,
     urls: PropTypes.shape({
@@ -43,4 +31,4 @@ ImageCards.propTypes = {
     }),
   }),
 };
-export default ImageCards;
+export default ImageCard;

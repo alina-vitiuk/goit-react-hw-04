@@ -22,9 +22,8 @@ const ImageModal = ({ isOpen, onCloseModal, image }) => {
     >
       <img
         className={css.galleryImage}
-        src={image}
+        src={image.urls.regular}
         alt={image.alt_description}
-        // width={image.urls.regular}
       />
     </Modal>
   );
