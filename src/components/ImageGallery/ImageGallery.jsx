@@ -1,15 +1,16 @@
-import ImageCard from "../ImageCard/ImageCard";
+import ImageCards from "../ImageCard/ImageCard";
+// import openModalWin from "../ImageCard/ImageCard";
 import PropTypes from "prop-types";
 import css from "./ImageGallery.module.css";
 
-const ImageGallery = ({ imageList, openModal }) => {
+const ImageGallery = ({ imageList, openModalWin }) => {
   const imageClick = (event) => {
     const imgItem = event.target.closest("li");
     if (imgItem) {
       const imgID = imgItem.dataset.id;
       const clickedImageItem = imageList.find((image) => image.id === imgID);
-      if (clickedImageItem) {
-        openModal(clickedImageItem);
+      if (clickedImageItem && typeof openModalWin === "function") {
+        openModalWin(clickedImageItem);
       }
     }
   };
@@ -19,7 +20,7 @@ const ImageGallery = ({ imageList, openModal }) => {
         <ul className={css.gallery} onClick={imageClick}>
           {imageList.map((img) => (
             <li className={css.galleryItem} key={img.id} data-id={img.id}>
-              <ImageCard imageItem={img} />
+              <ImageCards imageItem={img} />
             </li>
           ))}
         </ul>
@@ -31,10 +32,10 @@ const ImageGallery = ({ imageList, openModal }) => {
 ImageGallery.propTypes = {
   imageList: PropTypes.arrayOf(
     PropTypes.shape({
-      id: PropTypes.string,
+      id: PropTypes.string.isRequired,
     })
-  ),
-  openModal: PropTypes.func,
+  ).isRequired,
+  openModalWin: PropTypes.func.isRequired,
 };
 
 export default ImageGallery;

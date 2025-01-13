@@ -5,7 +5,6 @@ import { useEffect } from "react";
 import PropTypes from "prop-types";
 
 const ImageModal = ({ isOpen, onCloseModal, image }) => {
-  console.log(image);
   useEffect(() => {
     if (isOpen) {
       disableBodyScroll(document.body);
@@ -23,7 +22,7 @@ const ImageModal = ({ isOpen, onCloseModal, image }) => {
     >
       <img
         className={css.galleryImage}
-        src={image.urls.regular}
+        src={image}
         alt={image.alt_description}
         // width={image.urls.regular}
       />
@@ -33,13 +32,12 @@ const ImageModal = ({ isOpen, onCloseModal, image }) => {
 
 ImageModal.propTypes = {
   isOpen: PropTypes.bool,
-  onCloseModal: PropTypes.func,
+  onCloseModal: PropTypes.bool,
   image: PropTypes.shape({
     urls: PropTypes.shape({
       regular: PropTypes.string,
     }),
     alt_description: PropTypes.string,
-    description: PropTypes.string,
   }),
 };
 
