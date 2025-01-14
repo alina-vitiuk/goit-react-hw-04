@@ -81,9 +81,9 @@ function App() {
           className: css.toastTextCenter,
         }}
       />
-      {loadingSpiner && <Loader />}
       {error && <ErrorMessage />}
       <ImageGallery imageList={images} openModal={openModal} />
+      {loadingSpiner && <Loader />}
       {!loadingMore && (
         <LoadMoreBtn onClick={handleLoadMore} isVisible={isVisible} />
       )}
