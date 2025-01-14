@@ -1,16 +1,14 @@
 import { Field, Form, Formik } from "formik";
 import { FiSearch } from "react-icons/fi";
 import PropTypes from "prop-types";
-import { toast } from "react-hot-toast";
+
 import css from "./SearchBar.module.css";
 
 const SearchBar = ({ onSubmit }) => {
   const handleSubmit = (values, actions) => {
     const formattedSearch = values.search.trim().toLowerCase();
     onSubmit(formattedSearch);
-    if (values.search.trim() === "") {
-      toast.error("Please fill in the search field");
-    }
+
     actions.resetForm();
   };
 
