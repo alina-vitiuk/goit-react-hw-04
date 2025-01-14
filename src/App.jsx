@@ -23,7 +23,10 @@ function App() {
   const [modalIsOpen, setModalIsOpen] = useState(false);
 
   useEffect(() => {
-    if (!search) return;
+    if (!search) {
+      setLoadingMore(false);
+      return;
+    }
     const fetchPhotoApi = async () => {
       try {
         setLoadingSpiner(true);
@@ -34,7 +37,6 @@ function App() {
             "Sorry, there are no images matching your search query. Please try again!"
           );
         }
-        console.log(dataImages);
         setLoadingSpiner(false);
         setImages((prevImages) => {
           return [...prevImages, ...dataImages.results];
@@ -53,7 +55,7 @@ function App() {
   };
 
   const isVisible = () => {
-    return totalPages >= 1 && totalPages !== page;
+    return totalPages >= 1 && totalPages !== page && images;
   };
 
   const openModal = (image) => {
@@ -84,9 +86,7 @@ function App() {
       {error && <ErrorMessage />}
       <ImageGallery imageList={images} openModal={openModal} />
       {loadingSpiner && <Loader />}
-      {!loadingMore && (
-        <LoadMoreBtn onClick={handleLoadMore} isVisible={isVisible} />
-      )}
+      {isVisible() && <LoadMoreBtn onClick={handleLoadMore} />}
       {loadingMore && <LoaderMore />}
       {selectedImage && (
         <ImageModal

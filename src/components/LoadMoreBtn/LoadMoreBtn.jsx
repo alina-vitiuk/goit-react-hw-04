@@ -1,14 +1,12 @@
 import css from "./LoadMoreBtn.module.css";
 import PropTypes from "prop-types";
 
-const LoadMoreBtn = ({ onClick, isVisible }) => {
+const LoadMoreBtn = ({ onClick }) => {
   return (
     <div className={css.btnThumb}>
-      {isVisible() && (
-        <button className={css.btnLoad} onClick={onClick}>
-          Load More
-        </button>
-      )}
+      <button className={css.btnLoad} onClick={onClick}>
+        Load More
+      </button>
     </div>
   );
 };
